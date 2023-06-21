@@ -18,5 +18,5 @@ puts "find(4) => #{tree.find(4)}"
 puts "insert(14) => #{tree.insert(14)}"
 puts "insert(6) => #{tree.insert(6)}"
 puts "insert(4.5) => #{tree.insert(4.5)}"
-puts tree.show_tree 
-puts tree.root.left.data
+puts tree.pretty_print
+puts tree.root.data

@@ -56,26 +56,26 @@ class Tree
     node 
   end
 
-  def delete(value) 
+  def delete(value, node=@root)
+    return node if node.nil? 
+    
+    if value < node.data 
+      node.left =  delete(value, node.left)
+    elsif value > node.data 
+      node.right =  delete(value, node.right)
+    else 
+      return nil if node.left.nil? && node.right.nil? 
+    end
+
     
   end
 
-  def my_print_tree(node = @root)
+  def my_print_values(node = @root)
     return if node.nil?
 
     print_tree(node.left)
     puts node.data
     print_tree(node.right)
-  end
-
-  def show_tree(node = @root, prefix = "", is_left = true)
-    return if node.nil?
-
-    marker = is_left ? "├──" : "└──"
-    puts "#{prefix}#{marker} #{node.data}"
-
-    show_tree(node.left, "#{prefix}#{is_left ? "│   " : "    "}", true)
-    show_tree(node.right, "#{prefix}#{is_left ? "│   " : "    "}", false)
   end
 
   def find(value, node=@root) 
