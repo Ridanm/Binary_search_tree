@@ -56,19 +56,48 @@ class Tree
     node 
   end
 
-  def delete(value, node=@root)
-    return node if node.nil? 
-    
-    if value < node.data 
-      node.left =  delete(value, node.left)
-    elsif value > node.data 
-      node.right =  delete(value, node.right)
-    else 
-      return nil if node.left.nil? && node.right.nil? 
+  def delete(value)
+    @root = delete_node(@root, value)
+  end
+
+  def delete_node(node, value)
+    return node if node.nil?
+
+    if value < node.data
+      node.left = delete_node(node.left, value)
+    elsif value > node.data
+      node.right = delete_node(node.right, value)
+    else
+    # leaf: The node to delete is a leaf 
+      if node.left.nil? && node.right.nil?
+        node = nil
+    # one_child: The node to delete to delete has only one child
+      elsif node.left.nil?
+        node = node.right
+      elsif node.right.nil?
+        node = node.left
+    # two_childrens: Does the node to delete have both childrens
+      else
+        min_node = find_minimum_node(node.right)
+        node.data = min_node.data
+        node.right = delete_node(node.right, min_node.data)
+      end
     end
 
-    
+    node
   end
+
+  def find_minimum_node(node)
+    return node if node.left.nil?
+
+    find_minimum_node(node.left)
+  end
+
+  # def find_minimun_value(node=@root)
+  #   current = node 
+  #   current = current.left until current.left.nil? 
+  #   current.data 
+  # end
 
   def my_print_values(node = @root)
     return if node.nil?
@@ -86,9 +115,48 @@ class Tree
     node 
   end 
 
-  def level_order 
+  # def level_order
+  #   queue = [@root]
+  #   result = []
+  #   until queue.empty?
+  #     node = queue.shift
+  #     block_given? ? yield(node) : result << node.data
+  #     queue << node.left unless node.left.nil?
+  #     queue << node.right unless node.right.nil?
+  #   end
+  #   result unless block_given?
+  # end
 
+  def level_order
+    return if @root.nil? 
+    queue = [@root]
+    values = []
+
+    until queue.size == 0
+      temp_node = queue.shift 
+      yield(temp_node) if block_given?
+      values << temp_node.data unless block_given?
+
+      queue << temp_node.left unless temp_node.left.nil? 
+      queue << temp_node.right unless temp_node.right.nil? 
+    end
+    values unless block_given?
   end 
+
+  def breadth_firs_order 
+    result = []
+    queue = [@root] 
+
+    until queue.lenght == 0 
+      temp_node = queue.shift 
+      result << temp_node.data 
+
+      queue << node.left unless node.left.nil? 
+      queue << node.right unless node.right.nil? 
+    end
+
+    result 
+  end
 
   def inorder 
 
