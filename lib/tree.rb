@@ -1,10 +1,3 @@
-# 1. Initialize start=0, end=lenght of array -1 
-# 2. mid=(start+end)/2
-# 3. Create a tree node with mid as root(lets call it A)
-# 4. Recursively do following steps 
-# 5. Calculae mid of left subarray and make it root of left subtree of A 
-# 6. Calculate mid of right subarray and make it root of right subtree of A.
-
 class Tree 
 
   attr_accessor :root 
@@ -93,12 +86,6 @@ class Tree
     find_minimum_node(node.left)
   end
 
-  # def find_minimun_value(node=@root)
-  #   current = node 
-  #   current = current.left until current.left.nil? 
-  #   current.data 
-  # end
-
   def my_print_values(node = @root)
     return if node.nil?
 
@@ -114,18 +101,6 @@ class Tree
     value < node.data ? find(value, node.left) : find(value, node.right)
     node 
   end 
-
-  # def level_order
-  #   queue = [@root]
-  #   result = []
-  #   until queue.empty?
-  #     node = queue.shift
-  #     block_given? ? yield(node) : result << node.data
-  #     queue << node.left unless node.left.nil?
-  #     queue << node.right unless node.right.nil?
-  #   end
-  #   result unless block_given?
-  # end
 
   def level_order
     return if @root.nil? 
