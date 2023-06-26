@@ -25,15 +25,15 @@ class Tree
 
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
-    puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
+    puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.value}"
     pretty_print(node.left, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left
   end
 
   def search_node(value, node=@root)
     return false if node.nil? 
-    return true if node.data == value 
+    return true if node.value == value 
 
-    if value < node.data 
+    if value < node.value 
       search_node(value, node.left)
     else  
       search_node(value, node.right)
@@ -44,7 +44,7 @@ class Tree
     return Node.new(value) if node.nil? 
     return "The value is already in the tree" if search_node(value, node)
 
-    value < node.data ? node.left = insert(value, node.left) 
+    value < node.value ? node.left = insert(value, node.left) 
                       : node.right = insert(value, node.right)
     node 
   end
@@ -56,9 +56,9 @@ class Tree
   def delete_node(node, value)
     return node if node.nil?
 
-    if value < node.data
+    if value < node.value
       node.left = delete_node(node.left, value)
-    elsif value > node.data
+    elsif value > node.value
       node.right = delete_node(node.right, value)
     else
     # leaf: The node to delete is a leaf 
@@ -72,8 +72,8 @@ class Tree
     # two_childrens: Does the node to delete have both childrens
       else
         min_node = find_minimum_node(node.right)
-        node.data = min_node.data
-        node.right = delete_node(node.right, min_node.data)
+        node.value = min_node.value
+        node.right = delete_node(node.right, min_node.value)
       end
     end
 
@@ -90,15 +90,15 @@ class Tree
     return if node.nil?
 
     print_tree(node.left)
-    puts node.data
+    puts node.value
     print_tree(node.right)
   end
 
   def find(value, node=@root) 
     return if node.nil? 
-    return node if value == node.data 
+    return node if value == node.value 
 
-    value < node.data ? find(value, node.left) : find(value, node.right)
+    value < node.value ? find(value, node.left) : find(value, node.right)
     node 
   end 
 
@@ -110,7 +110,7 @@ class Tree
     until queue.size == 0
       temp_node = queue.shift 
       yield(temp_node) if block_given?
-      values << temp_node.data unless block_given?
+      values << temp_node.value unless block_given?
 
       queue << temp_node.left unless temp_node.left.nil? 
       queue << temp_node.right unless temp_node.right.nil? 
@@ -118,31 +118,37 @@ class Tree
     values unless block_given?
   end 
 
-  def breadth_firs_order 
-    result = []
-    queue = [@root] 
+  def inorder(node=@root, result=[], &block)
+    return if node.nil?
 
-    until queue.lenght == 0 
-      temp_node = queue.shift 
-      result << temp_node.data 
+    inorder(node.left, result, &block)  
+    result << node.value unless block_given?
+    block.call node if block_given?
+    inorder(node.right, result, &block) 
 
-      queue << node.left unless node.left.nil? 
-      queue << node.right unless node.right.nil? 
-    end
-
-    result 
-  end
-
-  def inorder 
-
+    result unless block_given?
   end 
 
-  def preorder 
+  def preorder(node=@root, result=[], &block) 
+    return if node.nil?
 
+    result << node.value unless block_given? 
+    block.call node if block_given? 
+    preorder(node.left, result, &block)
+    preorder(node.right, result, &block)
+
+    result unless block_given?
   end
 
-  def postorder 
+  def postorder(node=@root, result=[], &block)
+    return if node.nil? 
 
+    postorder(node.left, result, &block)
+    postorder(node.right, result, &block)
+    result << node.value unless block_given? 
+    block.call node if block_given? 
+
+    result unless block_given? 
   end
 
   def height 
