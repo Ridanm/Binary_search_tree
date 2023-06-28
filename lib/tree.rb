@@ -151,20 +151,59 @@ class Tree
     result unless block_given? 
   end
 
-  def height 
+  def height(node=@root)
+    return 0 if node.nil? 
 
+    left_depth = height(node.left)
+    right_depth = height(node.right)
+
+    if left_depth > right_depth 
+      return left_depth + 1 
+    else 
+      return right_depth + 1 
+    end
   end
 
-  def depth
+  def depth(node=@root, data)
+    return -1 if node.nil? 
 
+    edges = -1 
+    if data == node.value 
+      return edges + 1
+    else 
+      edges = depth(node.left, data)
+      if edges >= 0 
+        return edges += 1 
+      end
+      edges = depth(node.right, data) 
+      if edges >= 0 
+        return edges += 1
+      end
+    end
+
+      return edges 
   end
 
-  def balabced? 
-
+  # Balanced 
+  # FE = altura subárbol derecho - altura subárbol izquierdo
+  # Por definición, para un árbol AVL, este valor debe ser -1, 0 o 1.
+  # Si el factor de equilibrio de un nodo es:
+  # 0 -> el nodo está equilibrado y sus subárboles tienen exactamente la misma altura.
+  # 1 -> el nodo está equilibrado y su subárbol derecho es un nivel más alto.
+  # -1 -> el nodo está equilibrado y su subárbol izquierdo es un nivel más alto.
+  # Si el factor de equilibrio >= 2
+  # Fe >=2 es necesario reequilibrar.
+  def balanced? 
+    left_height = height(@root.left)
+    right_height = height(@root.right)
+    result = right_height - left_height
+    
+    result.between?(-1, 1)
   end
 
   def rebalance
-
+    refact = inorder()
+    @root = build_tree(refact)
   end 
 
   private :build_tree_helper
