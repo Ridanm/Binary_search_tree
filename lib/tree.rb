@@ -41,8 +41,9 @@ class Tree
   end
 
   def insert(value, node = @root) 
-    return Node.new(value) if node.nil? 
-    return "The value is already in the tree" if search_node(value, node)
+    return @root = Node.new if @root.nil? 
+    return node = Node.new(value) if node.nil? 
+    return node if value == node.value # "The value is already in the tree"
 
     value < node.value ? node.left = insert(value, node.left) 
                       : node.right = insert(value, node.right)
