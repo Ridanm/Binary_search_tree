@@ -10,10 +10,14 @@ require './tree.rb'
 # root.setRight(createBST(array, mid+1, end))
 # return root 
 
-array = [10, 3, 4, 6, 1, 2, 5, 7, 2, 4, 8, 9]
+array = [10, 3, 4, 4, 1, 2, 2, 7, 5, 6, 8, 9, 14, 18]
 tree = Tree.new(array)
+puts tree.pretty_print
+
 puts "root => #{tree.root.value}" 
 puts "find(4) => #{tree.find(4)}"
+puts "find(0) => #{tree.find(0)}"
+puts "find(18) => #{tree.find(18)}"
 puts "insert(14) => #{tree.insert(14)}"
 puts "insert(6) => #{tree.insert(6)}"
 puts "insert(4.5) => #{tree.insert(4.5)}"

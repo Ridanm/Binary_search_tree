@@ -96,11 +96,11 @@ class Tree
   end
 
   def find(value, node=@root) 
-    return if node.nil? 
+    return false if node.nil? 
     return node if value == node.value 
 
-    value < node.value ? find(value, node.left) : find(value, node.right)
-    node 
+    value < node.value ? find(value, node.left) 
+                       : find(value, node.right)
   end 
 
   def level_order
