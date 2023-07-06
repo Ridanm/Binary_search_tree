@@ -207,6 +207,13 @@ class Tree
     @root = build_tree(refact)
   end 
 
+  def show_tree(node=@root, level=0)
+    return puts "The node is empty..." if node.nil?
+    puts "#{'-'*level} #{node.value}" if node.value
+    show_tree(node.left, level+1) if node.left 
+    show_tree(node.right, level+1) if node.right 
+  end
+
   private :build_tree_helper
 
 end
