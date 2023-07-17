@@ -5,23 +5,38 @@ class Tree
   def initialize(array)
     @root = build_tree(array)
   end
+
+  def build_tree(arr)
+    return if arr.empty?
+    sort_arr = arr.uniq.sort 
+
+    start_ind = 0
+    last_ind = sort_arr.length - 1
+    middle = (start_ind + last_ind) / 2
+
+    build_root = Node.new(sort_arr[middle])
+    build_root.left = build_tree(sort_arr[start_ind, middle])
+    build_root.right = build_tree(sort_arr[middle + 1, last_ind])
+
+    build_root 
+  end
   
-  def build_tree(array)
-    sorted_array = array.uniq.sort 
-    build_tree_helper(sorted_array, 0, sorted_array.length - 1)
-  end
+  # def build_tree(array)
+  #   sorted_array = array.uniq.sort 
+  #   build_tree_helper(sorted_array, 0, sorted_array.length - 1)
+  # end
 
-  def build_tree_helper(array, start_index, end_index)
-    return nil if start_index > end_index
+  # def build_tree_helper(array, start_index, end_index)
+  #   return nil if start_index > end_index
 
-    mid_index = (start_index + end_index) / 2
-    
-    root = Node.new(array[mid_index])
-    root.left = build_tree_helper(array, start_index, mid_index - 1)
-    root.right = build_tree_helper(array, mid_index + 1, end_index)
+  #   mid_index = (start_index + end_index) / 2
 
-    root
-  end
+  #   root = Node.new(array[mid_index])
+  #   root.left = build_tree_helper(array, start_index, mid_index - 1)
+  #   root.right = build_tree_helper(array, mid_index + 1, end_index)
+
+  #   root
+  # end
 
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
@@ -214,6 +229,6 @@ class Tree
     show_tree(node.right, level+1) if node.right 
   end
 
-  private :build_tree_helper
+  # private :build_tree_helper
 
 end
