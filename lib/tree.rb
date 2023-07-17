@@ -15,8 +15,8 @@ class Tree
     return nil if start_index > end_index
 
     mid_index = (start_index + end_index) / 2
+    
     root = Node.new(array[mid_index])
-
     root.left = build_tree_helper(array, start_index, mid_index - 1)
     root.right = build_tree_helper(array, mid_index + 1, end_index)
 

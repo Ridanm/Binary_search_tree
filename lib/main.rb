@@ -12,7 +12,8 @@ require './tree.rb'
 
 array = [10, 3, 4, 4, 1, 2, 2, 7, 5, 6, 8, 9, 14, 18]
 tree = Tree.new(array)
-puts tree.pretty_print
+puts 'Each dash represent a level: root, -left, -right'
+puts tree.show_tree
 
 puts "root => #{tree.root.value}" 
 puts "find(4) => #{tree.find(4)}"
