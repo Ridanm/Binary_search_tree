@@ -98,7 +98,6 @@ class Tree
 
   def find_minimum_node(node)
     return node if node.left.nil?
-
     find_minimum_node(node.left)
   end
 
@@ -168,7 +167,7 @@ class Tree
   end
 
   def height(node=@root)
-    return 0 if node.nil? 
+    return -1 if node.nil? 
 
     left_depth = height(node.left)
     right_depth = height(node.right)
@@ -200,15 +199,6 @@ class Tree
       return edges 
   end
 
-  # Balanced 
-  # FE = altura subárbol derecho - altura subárbol izquierdo
-  # Por definición, para un árbol AVL, este valor debe ser -1, 0 o 1.
-  # Si el factor de equilibrio de un nodo es:
-  # 0 -> el nodo está equilibrado y sus subárboles tienen exactamente la misma altura.
-  # 1 -> el nodo está equilibrado y su subárbol derecho es un nivel más alto.
-  # -1 -> el nodo está equilibrado y su subárbol izquierdo es un nivel más alto.
-  # Si el factor de equilibrio >= 2
-  # Fe >=2 es necesario reequilibrar.
   def balanced? 
     left_height = height(@root.left)
     right_height = height(@root.right)
@@ -228,7 +218,4 @@ class Tree
     show_tree(node.left, level+1) if node.left 
     show_tree(node.right, level+1) if node.right 
   end
-
-  # private :build_tree_helper
-
 end
