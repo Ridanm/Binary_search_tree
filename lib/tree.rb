@@ -21,23 +21,6 @@ class Tree
     build_root 
   end
   
-  # def build_tree(array)
-  #   sorted_array = array.uniq.sort 
-  #   build_tree_helper(sorted_array, 0, sorted_array.length - 1)
-  # end
-
-  # def build_tree_helper(array, start_index, end_index)
-  #   return nil if start_index > end_index
-
-  #   mid_index = (start_index + end_index) / 2
-
-  #   root = Node.new(array[mid_index])
-  #   root.left = build_tree_helper(array, start_index, mid_index - 1)
-  #   root.right = build_tree_helper(array, mid_index + 1, end_index)
-
-  #   root
-  # end
-
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.value}"
