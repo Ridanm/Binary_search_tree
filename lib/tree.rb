@@ -59,7 +59,6 @@ class Tree
     return @root = Node.new if @root.nil? 
     return node = Node.new(value) if node.nil? 
     return node if value == node.value # "The value is already in the tree"
-
     value < node.value ? node.left = insert(value, node.left) 
                       : node.right = insert(value, node.right)
     node 
@@ -92,7 +91,6 @@ class Tree
         node.right = delete_node(node.right, min_node.value)
       end
     end
-
     node
   end
 
@@ -103,7 +101,6 @@ class Tree
 
   def my_print_values(node = @root)
     return if node.nil?
-
     print_tree(node.left)
     puts node.value
     print_tree(node.right)
@@ -112,7 +109,6 @@ class Tree
   def find(value, node=@root) 
     return false if node.nil? 
     return node if value == node.value 
-
     value < node.value ? find(value, node.left) 
                        : find(value, node.right)
   end 
@@ -126,7 +122,6 @@ class Tree
       temp_node = queue.shift 
       yield(temp_node) if block_given?
       values << temp_node.value unless block_given?
-
       queue << temp_node.left unless temp_node.left.nil? 
       queue << temp_node.right unless temp_node.right.nil? 
     end
@@ -135,7 +130,6 @@ class Tree
 
   def inorder(node=@root, result=[], &block)
     return if node.nil?
-
     inorder(node.left, result, &block)  
     result << node.value unless block_given?
     block.call node if block_given?
@@ -146,7 +140,6 @@ class Tree
 
   def preorder(node=@root, result=[], &block) 
     return if node.nil?
-
     result << node.value unless block_given? 
     block.call node if block_given? 
     preorder(node.left, result, &block)
@@ -157,7 +150,6 @@ class Tree
 
   def postorder(node=@root, result=[], &block)
     return if node.nil? 
-
     postorder(node.left, result, &block)
     postorder(node.right, result, &block)
     result << node.value unless block_given? 
@@ -168,7 +160,6 @@ class Tree
 
   def height(node=@root)
     return -1 if node.nil? 
-
     left_depth = height(node.left)
     right_depth = height(node.right)
 
@@ -181,8 +172,8 @@ class Tree
 
   def depth(node=@root, data)
     return -1 if node.nil? 
-
     edges = -1 
+
     if data == node.value 
       return edges + 1
     else 
@@ -195,15 +186,13 @@ class Tree
         return edges += 1
       end
     end
-
-      return edges 
+    return edges 
   end
 
   def balanced? 
     left_height = height(@root.left)
     right_height = height(@root.right)
     result = right_height - left_height
-    
     result.between?(-1, 1)
   end
 
