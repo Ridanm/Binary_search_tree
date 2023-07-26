@@ -42,6 +42,7 @@ class Tree
     return @root = Node.new if @root.nil? 
     return node = Node.new(value) if node.nil? 
     return node if value == node.value # "The value is already in the tree"
+    
     value < node.value ? node.left = insert(value, node.left) 
                       : node.right = insert(value, node.right)
     node 
@@ -84,6 +85,7 @@ class Tree
 
   def my_print_values(node = @root)
     return if node.nil?
+
     print_tree(node.left)
     puts node.value
     print_tree(node.right)
@@ -92,6 +94,7 @@ class Tree
   def find(value, node=@root) 
     return false if node.nil? 
     return node if value == node.value 
+
     value < node.value ? find(value, node.left) 
                        : find(value, node.right)
   end 
@@ -108,6 +111,7 @@ class Tree
       queue << temp_node.left unless temp_node.left.nil? 
       queue << temp_node.right unless temp_node.right.nil? 
     end
+
     values unless block_given?
   end 
 
@@ -169,6 +173,7 @@ class Tree
         return edges += 1
       end
     end
+
     return edges 
   end
 
@@ -187,6 +192,7 @@ class Tree
   def show_tree(node=@root, level=0)
     return puts "The node is empty..." if node.nil?
     puts "#{'-'*level} #{node.value}" if node.value
+
     show_tree(node.left, level+1) if node.left 
     show_tree(node.right, level+1) if node.right 
   end
