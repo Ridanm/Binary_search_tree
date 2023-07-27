@@ -88,5 +88,9 @@ tree.rebalance
 tree.pretty_print
 puts "Balanced => #{tree.balanced?}"
 
+puts "\nDelete(5.5)..."
+tree.delete(5.5)
+tree.pretty_print
+
 
 
