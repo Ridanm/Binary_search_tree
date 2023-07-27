@@ -42,40 +42,36 @@ class Tree
     return @root = Node.new if @root.nil? 
     return node = Node.new(value) if node.nil? 
     return node if value == node.value # "The value is already in the tree"
-    
+
     value < node.value ? node.left = insert(value, node.left) 
                       : node.right = insert(value, node.right)
     node 
   end
 
-  def delete(value)
-    @root = delete_node(@root, value)
-  end
-
-  def delete_node(node, value)
-    return node if node.nil?
-
+  def delete(value, node=@root)
+    return if node.nil?
+    
     if value < node.value
-      node.left = delete_node(node.left, value)
+      node.left = delete(value, node.left)
     elsif value > node.value
-      node.right = delete_node(node.right, value)
-    else
-    # leaf: The node to delete is a leaf 
+      node.right = delete(value, node.right)
+    else   
+  # leaf: The node to delete is a leaf 
       if node.left.nil? && node.right.nil?
         node = nil
-    # one_child: The node to delete to delete has only one child
+  # one_child: The node to delete to delete has only one child
       elsif node.left.nil?
         node = node.right
       elsif node.right.nil?
         node = node.left
-    # two_childrens: Does the node to delete have both childrens
+  # two_childrens: Does the node to delete have both childrens
       else
-        min_node = find_minimum_node(node.right)
-        node.value = min_node.value
-        node.right = delete_node(node.right, min_node.value)
+        temp = find_minimum_node(node.right)
+        node.value = temp.value
+        node.right = delete(temp.value, node.right)
       end
     end
-    node
+     node
   end
 
   def find_minimum_node(node)
