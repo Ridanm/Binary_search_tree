@@ -98,17 +98,17 @@ class Tree
   def level_order
     return if @root.nil? 
     queue = [@root]
-    values = []
+    visited = []
 
     until queue.size == 0
       temp_node = queue.shift 
       yield(temp_node) if block_given?
-      values << temp_node.value unless block_given?
+      visited << temp_node.value unless block_given?
       queue << temp_node.left unless temp_node.left.nil? 
       queue << temp_node.right unless temp_node.right.nil? 
     end
 
-    values unless block_given?
+    visited unless block_given?
   end 
 
   def inorder(node=@root, result=[], &block)
