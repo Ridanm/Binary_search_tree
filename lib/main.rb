@@ -92,5 +92,38 @@ puts "\nDelete(5.5)..."
 tree.delete(5.5)
 tree.pretty_print
 
+puts "\nlevel_order..."
+p tree.level_order 
 
+puts 
+puts "-"*100
 
+puts "\nA SIMPLE SCRIPT..."
+puts 
+arr_rand = Array.new(15) { rand(1..100) }
+a_tree = Tree.new(arr_rand)
+a_tree.pretty_print
+puts "Is balanced? => #{a_tree.balanced?}"
+
+puts "\nPreorder => #{a_tree.preorder}"
+puts "Inorder => #{a_tree.inorder}"
+puts "Postorder => #{a_tree.postorder}"
+
+puts "\nUnbalance the tree..."
+10.times { a_tree.insert(rand(100..250)) }
+a_tree.pretty_print 
+puts "Is balanced? => #{a_tree.balanced?}"
+
+puts "\nRebalance..."
+a_tree.rebalance
+a_tree.pretty_print
+puts "Is balanced? => #{a_tree.balanced?}"
+
+puts "\nLevel order => #{a_tree.level_order}"
+puts "Preorder => #{a_tree.preorder}"
+puts "Postorder => #{a_tree.postorder}"
+puts "Inorder => #{a_tree.inorder}"
+
+puts 
+puts "-"*100
+puts 
