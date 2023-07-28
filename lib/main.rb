@@ -1,9 +1,13 @@
 require './node.rb'
 require './tree.rb'
 
+def dashes
+  puts "\n#{'-'*100}\n\n"
+end
+
 array = [10, 3, 4, 4, 1, 2, 2, 7, 5, 6, 8, 9, 14, 18]
 tree = Tree.new(array)
-puts 'Each dash represent a level: root, -left, -right'
+puts 'Each dashes represent a level: root, -left, -right'
 puts tree.show_tree
 
 puts "root => #{tree.root.value}" 
@@ -85,10 +89,9 @@ tree.pretty_print
 puts "\nlevel_order..."
 p tree.level_order 
 
-puts 
-puts "-"*100
+dashes()
 
-puts "\nA SIMPLE SCRIPT..."
+puts "A SIMPLE SCRIPT..."
 puts 
 arr_rand = Array.new(15) { rand(1..100) }
 a_tree = Tree.new(arr_rand)
@@ -114,6 +117,4 @@ puts "Preorder => #{a_tree.preorder}"
 puts "Postorder => #{a_tree.postorder}"
 puts "Inorder => #{a_tree.inorder}"
 
-puts 
-puts "-"*100
-puts 
+dashes()
