@@ -1,15 +1,6 @@
 require './node.rb'
 require './tree.rb'
 
-# TreeNode create (int[], int start, int end) esto es de java 
-# if start > end return nill 
-# int mid = start(0 in array) + end (last index(-1) in array ) / 2 => 0 + 8 = 4
-# 0 1 2 3 4 5 6 7 8
-#[1,2,3,4,5,6,7,8,9] => root (5)
-# root.setLeft(createBST(array, start, mid-1))
-# root.setRight(createBST(array, mid+1, end))
-# return root 
-
 array = [10, 3, 4, 4, 1, 2, 2, 7, 5, 6, 8, 9, 14, 18]
 tree = Tree.new(array)
 puts 'Each dash represent a level: root, -left, -right'
@@ -45,7 +36,6 @@ puts "right values => [#{right_values.join(', ')}]"
 
 puts
 numbers = [1, 3, 2, 5, 4, 6, 7]
-letters = ['A', 'F', 'D', 'B', 'C', 'E', 'G'] # Inorder => D, B, E, A, F, C, G from minor to major
 tree_two = Tree.new(numbers)
 
 p "Inorder => #{tree_two.inorder}" 
